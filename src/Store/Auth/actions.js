@@ -1,4 +1,6 @@
 import * as actionTypes from "./actionTypes";
+import axios from "axios";
+import querystring from "querystring";
 
 export const login = credentials => {
   return (dispatch, getState) => {
@@ -8,10 +10,7 @@ export const login = credentials => {
     });
 
     //try to log import { NavLink } from 'react-router-dom'
-    fetch("https://your API", {
-      method: "POST",
-      body: JSON.stringify(credentials)
-    })
+    axios.post('http://35.188.176.184:80/user_login', querystring.stringify(credentials))
       .then(response => {
         response.json().then(status => {
           dispatch({ type: actionTypes.LOG_IN_SUCCEEDED });

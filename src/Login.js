@@ -3,6 +3,8 @@ import axios from "axios";
 import querystring from "querystring";
 import  { Redirect } from 'react-router-dom'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { login } from "./Store/Auth/actions";
+import { connect } from "react-redux";
 
 class Login extends React.Component {
 constructor(props) {
@@ -31,7 +33,7 @@ constructor(props) {
 		
 		
 		
-      axios.post('http://35.188.176.184:80/user_login', querystring.stringify({ AttemptedUserName: this.state.AttemptedUserName,AttemptedPassword: this.state.AttemptedPassword }))
+      /*axios.post('http://35.188.176.184:80/user_login', querystring.stringify({ AttemptedUserName: this.state.AttemptedUserName,AttemptedPassword: this.state.AttemptedPassword }))
 		.then((response) => {
         this.setState({
           ...this.state,
@@ -39,16 +41,17 @@ constructor(props) {
 			
         });
 		  
-       /* window.sessionStorage.setItem("UserId", response.data.UserId);
-		window.sessionStorage.setItem("UserName", response.data.UserName); */
+       window.sessionStorage.setItem("UserId", response.data.UserId);
+		window.sessionStorage.setItem("UserName", response.data.UserName);
 		  
 		alert('Login successful.\n\n UserName : '+response.data.UserName+'\n UserId : '+response.data.UserId);
     } )
      .catch((response) => {
         //handle error
         console.log(response);
-      });
-     
+      });*/
+	 var credentials={AttemptedUserName: this.state.AttemptedUserName,AttemptedPassword: this.state.AttemptedPassword};
+     login(credentials);
  }
    
 	
@@ -111,4 +114,7 @@ constructor(props) {
   }
 }
 
-export default Login;
+export default connect(
+  null,
+  { login }
+)(Login);
